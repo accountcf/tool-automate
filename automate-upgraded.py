@@ -41,39 +41,7 @@ def read_source_path():
         return False
     except Exception as e:
         print(f"[{datetime.datetime.now():%Y-%m-%d %H:%M:%S}] ❌ Lỗi khi đọc file source.txt: {e}")
-        return False
-
-
-def log(msg):
-    
-    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    line = f"[{ts}] {msg}"
-    print(line)
-    
-    if not SOURCE_FILE:
-        return
-        
-    try:
-        hostname = socket.gethostname().upper()
-        
-        
-        try:
-            ip_address = socket.gethostbyname(hostname)
-        except socket.gaierror:
-            ip_address = "IP-not-found"
-
-        
-        log_filename = f"{hostname}-{ip_address}.log"
-        
-        log_dir  = os.path.join(os.path.dirname(SOURCE_FILE), "upgrade_log")
-        os.makedirs(log_dir, exist_ok=True)
-        
-        with open(os.path.join(log_dir, log_filename), "a", encoding="utf-8") as f:
-            f.write(line + "\n")
-    except Exception:
-        pass
->
-
+        return 
 
 
 def check_user():
