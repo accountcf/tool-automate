@@ -10,17 +10,14 @@ ALLOWED_USERS = {
 }
 
 
-SOURCE_FILE = None
-exe_path = None
-
-def get_script_directory():
+SOURCE_FILE 
     
     if getattr(sys, 'frozen', False):
         
         return os.path.dirname(sys.executable)
     else:
         
-        return os.path.dirname(os.path.abspath(__file__))
+        return os.path.dirname(os.path(__file__))
 
 def read_source_path():
     """Đọc đường dẫn file nguồn từ file source.txt."""
