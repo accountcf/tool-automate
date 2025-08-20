@@ -51,22 +51,7 @@ def check_user():
         current_user = os.getenv("USERNAME", "unknown").lower()
     if current_user not in ALLOWED_USERS:
         log("❌ User không hợp lệ – dừng lại.")
-        return False
-    log("✅ User hợp lệ – tiếp tục...")
-    return True
-
-# ---------------------------------------------------
-def get_windows_version():
-    try:
-        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,
-                             r"SOFTWARE\Microsoft\Windows NT\CurrentVersion")
-        build, _ = winreg.QueryValueEx(key, "CurrentBuildNumber")
-        winreg.CloseKey(key)
-        return 11 if int(build) >= 22000 else 10
-    except Exception:
-        return 10
-
-# ---------------------------------------------------
+        
 def check_and_skip_if_win11():
     if get_windows_version() >= 11:
         log("✅ Đã cài Windows 11 – bỏ qua.")
@@ -79,12 +64,7 @@ def remove_inactive_profiles():
     users_root = r"C:\Users"
     cutoff = datetime.datetime.now() - datetime.timedelta(days=DAYS_INACTIVE)
     skip_dirs = {"All Users", "Default", "Default User", "Public", "desktop.ini"}
-    removed = 0
-    for item in os.listdir(users_root):
-        p = os.path.join(users_root, item)
-        if not os.path.isdir(p) or item.lower() in (d.lower() for d in skip_dirs):
-            continue
-        try:
+    removed = 
             last = datetime.datetime.fromtimestamp(os.path.getatime(p))
             if last < cutoff:
                 log(f"🗑️  Xóa profile: {item} (truy cập cuối {last:%Y-%m-%d})")
